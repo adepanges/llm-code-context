@@ -7,7 +7,7 @@ import torch
 class UniXcoderEmbeddingsProvider:
     def __init__(self, device: Optional[str] = None):
         default_device = "cuda" if torch.cuda.is_available() else "cpu"
-        self.device = torch.device(default_device if device is None else device)
+        self.device = torch.device("mps")
         self.model = UniXcoder("microsoft/unixcoder-base")
         self.model.to(self.device)
         self.model_name = "microsoft/unixcoder-base"

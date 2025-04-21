@@ -17,8 +17,8 @@ if __name__ == '__main__':
         for row in fp:
             row_dict = json.loads(row)
             vertex_id = row_dict["id"]
-            if row_dict["type"] == "vertex" and row_dict["label"] == "metaData":
-                root_dir = Path(os.path.normpath(row_dict["projectRoot"].replace("file://", "")))
+            if row_dict["type"] == "vertex" and row_dict["label"] == "source":
+                root_dir = Path(os.path.normpath(row_dict["workspaceRoot"].replace("file://", "")))
 
             if row_dict["type"] == "vertex" and row_dict["label"] == "document":
                 documents[vertex_id] = row_dict

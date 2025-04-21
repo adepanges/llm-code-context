@@ -64,13 +64,14 @@ def upload():
             )
         )
     )
+    print(f"Done create collection {collection_name}")
 
     client.upload_collection(
         collection_name=collection_name,
         vectors=encode(),
         payload=tqdm.tqdm(load_records()),
     )
-
+    print(f"Done upload_collection")
 
 if __name__ == '__main__':
     upload()

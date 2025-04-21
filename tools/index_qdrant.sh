@@ -15,12 +15,13 @@ python -m code_search.index.files_to_json
 
 python -m code_search.index.file_uploader
 
-rustup run stable rust-analyzer -v lsif $QDRANT_PATH > $ROOT_PATH/data/index.lsif
+# Copy the SCIP index file instead of generating LSIF with rust-analyzer
+cp $QDRANT_PATH/index.lsif $ROOT_PATH/data/index.lsif
 
-python -m code_search.index.convert_lsif_index
+python -m code_search.index.convert_lsif_index --device mps 
 
-python -m code_search.index.upload_code
+python -m code_search.index.upload_code --device mps 
 
-docker run --rm -v $QDRANT_PATH:/source qdrant/rust-parser ./rust_parser /source > $ROOT_PATH/data/structures.json
+docker run --rm --platform linux/amd64 -v $QDRANT_PATH:/source qdrant/rust-parser ./rust_parser /source > $ROOT_PATH/data/structures.json
 
 python -m code_search.index.upload_signatures
